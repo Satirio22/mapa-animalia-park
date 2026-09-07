@@ -1,98 +1,133 @@
 * {
     box-sizing: border-box;
+    /* Remove o destaque cinza padrão do toque no Android/iOS */
+    -webkit-tap-highlight-color: transparent; 
 }
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #ffffff; /* FUNDO BRANCO COMPLETO */
+    color: #333333;
+    overflow-x: hidden;
 }
 
-/* CABEÇALHO */
-header {
-    background: #111;
-    color: white;
-    text-align: center;
-    padding: 20px;
+/* CABEÇALHO ROXO FIXO NO TOPO */
+.header-animalia {
+    background-color: #4A154B;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding-top: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-header h1 {
-    margin: 0;
+/* LOGO CENTRAL */
+.logo-container {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
-header p {
-    margin: 8px 0 0;
+.logo-central {
+    height: 52px;
+    width: auto;
+    filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.3));
 }
 
-/* FILTROS */
+/* FAIXA VIOLETA E BOTÕES DE NAVEGAÇÃO */
 .filtros {
+    background-color: #8C1B92;
     display: flex;
-    gap: 10px;
-    justify-content: center;
-    padding: 20px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    gap: 8px;
 }
 
 .filtros button {
+    flex: 1;
     border: none;
-    padding: 12px 18px;
-    border-radius: 8px;
+    background: transparent;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
-    background: #222;
-    color: white;
-    font-size: 15px;
-    transition: background 0.3s ease;
-}
-
-.filtros button:hover {
-    opacity: 0.8;
+    /* Altura mínima de 44px para facilitar o toque com o polegar no celular */
+    min-height: 44px;
+    border-radius: 22px;
+    transition: background 0.2s ease, color 0.2s ease;
+    text-transform: uppercase;
 }
 
 /* DESTAQUE DO BOTÃO ATIVO */
 .filtros button.active {
-    background: #0E2841;
-    font-weight: bold;
-    box-shadow: 0 0 8px rgba(14, 40, 65, 0.6);
+    background: #ffffff;
+    color: #8C1B92;
 }
 
-/* MAPA */
+/* ÁREA DO MAPA */
+.mapa-container {
+    width: 100%;
+    padding: 15px 8px;
+    display: flex;
+    justify-content: center;
+}
+
 .mapa {
     position: relative;
-    width: 95%;
-    max-width: 1200px;
-    margin: auto;
+    width: 100%;
+    max-width: 600px; /* Limite ideal para telas mobile */
+    margin: 0 auto;
 }
 
 .mapa img {
     width: 100%;
+    height: auto;
     display: block;
+    border-radius: 12px;
+    /* Sombra leve para destacar a imagem do mapa no fundo branco */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
 }
 
-/* PONTOS */
+/* PONTOS NO MAPA - ÁREA DE TOQUE AMPLIADA PARA O POLEGAR */
 .ponto {
     position: absolute;
     transform: translate(-50%, -50%);
     background-color: #ffffff;
-    border: 1px solid #0E2841;
+    border: 2px solid #8C1B92;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 10px;
+    /* Tamanho do botão visível */
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: transform 0.2s ease, background-color 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    will-change: transform;
 }
 
-.ponto:hover {
-    transform: translate(-50%, -50%) scale(1.2);
-    background-color: #e8f5e9;
-    z-index: 10;
+/* Aumenta a área clicável invisível ao redor do ponto */
+.ponto::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
 }
 
-/* JANELA MODAL */
+.ponto:active {
+    transform: translate(-50%, -50%) scale(1.3);
+    background-color: #f0e6f2;
+}
+
+/* JANELA MODAL TIPO 'BOTTOM SHEET' (ESTILO APP MOBILE) */
 .janela {
     display: none;
     position: fixed;
@@ -100,9 +135,10 @@ header p {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo semi-transparente leve */
+    backdrop-filter: blur(2px); /* Desfoque suave no fundo ao abrir o modal */
+    justify-content: flex-end;
+    flex-direction: column;
     z-index: 1000;
 }
 
@@ -112,22 +148,64 @@ header p {
 
 .conteudo {
     background-color: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 350px;
+    padding: 20px 20px 30px 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 100%;
     position: relative;
     text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.15);
+    animation: deslizarParaCima 0.25s ease-out;
+}
+
+/* Puxador decorativo no topo do modal */
+.barra-arraste {
+    width: 40px;
+    height: 5px;
+    background-color: #dddddd;
+    border-radius: 10px;
+    margin: 0 auto 15px auto;
+}
+
+@keyframes deslizarParaCima {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
 }
 
 .fechar {
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 15px;
-    background: none;
+    background: #f0f0f0;
     border: none;
-    font-size: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
-    color: #666;
+    color: #555555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.conteudo h2 {
+    margin: 10px 0 5px;
+    font-size: 20px;
+    color: #8C1B92;
+}
+
+.conteudo h3 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #666666;
+    font-weight: 500;
+}
+
+.conteudo p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333333;
+    margin: 0;
 }
