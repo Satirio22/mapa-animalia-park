@@ -100,18 +100,20 @@ function fecharAoClicarFora(event) {
     }
 }
 
-// LIMITES REAIS DO PARQUE (LATITUDE E LONGITUDE)
-// Ajuste estas coordenadas conforme os limites reais do terreno
+// LIMITES REAIS E AJUSTADOS DO ANIMÁLIA PARK
 const LIMITES_PARQUE = {
-    latMax: -23.600000, // Canto superior (Norte)
-    latMin: -23.610000, // Canto inferior (Sul)
-    lngMin: -46.900000, // Canto esquerdo (Oeste)
-    lngMax: -46.890000  // Canto direito (Leste)
+    latMax: -23.601500, // Norte (Topo do Mapa)
+    latMin: -23.609500, // Sul (Base do Mapa)
+    lngMin: -46.899000, // Oeste (Esquerda do Mapa)
+    lngMax: -46.888000  // Leste (Direita do Mapa)
 };
 
 function iniciarGeolocalizacao() {
+    const userMarker = document.getElementById("userLocation");
+
     if (!navigator.geolocation) {
         console.warn("Geolocalização não é suportada por este navegador.");
+        esconderElemento();
         return;
     }
 
@@ -120,56 +122,53 @@ function iniciarGeolocalizacao() {
             const lat = posicao.coords.latitude;
             const lng = posicao.coords.longitude;
 
-            // Converte Lat/Lng em Porcentagem (%)
-            const topPercent = ((LIMITES_PARQUE.latMax - lat) / (LIMITES_PARQUE.latMax - LIMITES_PARQUE.latMin)) * 100;
-            const leftPercent = ((lng - LIMITES_PARQUE.lngMin) / (LIMITES_PARQUE.lngMax - LIMITES_PARQUE.lngMin)) * 100;
+            // Converte Latitude e Longitude para % dentro da imagem do mapa
+            let topPercent = ((LIMITES_PARQUE.latMax - lat) / (LIMITES_PARQUE.latMax - LIMITES_PARQUE.latMin)) * 100;
+            let leftPercent = ((lng - LIMITES_PARQUE.lngMin) / (LIMITES_PARQUE.lngMax - LIMITES_PARQUE.lngMin)) * 100;
 
-            const userMarker = document.getElementById("userLocation");
+            console.log(`Posição GPS real: Lat ${lat}, Lng ${lng}`);
+            console.log(`Posição calculada: Top ${topPercent.toFixed(1)}%, Left ${leftPercent.toFixed(1)}%`);
 
-            // Exibe o marcador apenas se o visitante estiver dentro do perímetro do parque
+            // Se o usuário estiver dentro dos limites do parque (0% a 100%)
             if (topPercent >= 0 && topPercent <= 100 && leftPercent >= 0 && leftPercent <= 100) {
-                userMarker.style.top = `${topPercent}%`;
-                userMarker.style.left = `${leftPercent}%`;
-                userMarker.style.display = "block";
+                posicionarElemento(topPercent, leftPercent);
             } else {
-                userMarker.style.display = "none";
+                // Se estiver testando fora do parque (ex: em casa), oculta o ponto para não mostrar lugar errado
+                console.warn("Você está fora do perímetro do mapa do parque.");
+                esconderElemento();
             }
         },
         (erro) => {
-            console.warn("Erro ao obter localização: ", erro.message);
+            console.warn("Erro de GPS/Rede:", erro.message);
+            esconderElemento();
         },
         {
-            enableHighAccuracy: true,
-            maximumAge: 1000,
-            timeout: 5000
+            enableHighAccuracy: false, // Evita estouro de tempo (Timeout) em notebooks/Wi-Fi
+            maximumAge: 10000,         // Aceita posições recentes obtidas nos últimos 10s
+            timeout: 20000             // Dá até 20 segundos de tolerance de busca
         }
     );
 }
 
+function posicionarElemento(top, left) {
+    const userMarker = document.getElementById("userLocation");
+    if (userMarker) {
+        userMarker.style.top = `${top}%`;
+        userMarker.style.left = `${left}%`;
+        userMarker.style.display = "block";
+        userMarker.style.zIndex = "999";
+    }
+}
+
+function esconderElemento() {
+    const userMarker = document.getElementById("userLocation");
+    if (userMarker) {
+        userMarker.style.display = "none";
+    }
+}
+
 // CARREGAMENTO INICIAL
 window.onload = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const mapaParam = urlParams.get('mapa');
-    const pontoParam = urlParams.get('ponto');
-
-    const categoriaInicial = (mapaParam && dadosPark[mapaParam]) ? mapaParam : 'reserva';
-    
-    const botoes = document.querySelectorAll('.btn-filtro');
-    botoes.forEach(btn => {
-        const ehReserva = categoriaInicial === 'reserva' && btn.textContent.includes('Reserva');
-        const ehDiversao = categoriaInicial === 'diversao' && btn.textContent.includes('Diversão');
-        btn.classList.toggle('active', ehReserva || ehDiversao);
-    });
-
-    trocarMapa(categoriaInicial);
-
-    if (pontoParam) {
-        const pontoEncontrado = dadosPark[categoriaInicial].pontos.find(p => p.id === pontoParam);
-        if (pontoEncontrado) {
-            abrirLocal(pontoEncontrado.nome, pontoEncontrado.area, pontoEncontrado.desc);
-        }
-    }
-
-    // Inicia a leitura de GPS
+    trocarMapa('reserva');
     iniciarGeolocalizacao();
 };
