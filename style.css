@@ -205,3 +205,30 @@ body {
     color: #333333;
     margin: 0;
 }
+
+/* MARCADOR DE GEOLOCALIZAÇÃO DO USUÁRIO */
+.user-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 90;
+    font-size: 20px;
+    pointer-events: none;
+}
+
+/* Efeito de onda pulsante para destacar o usuário */
+.pulsar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(74, 21, 75, 0.4);
+    border-radius: 50%;
+    animation: pulso 1.8s infinite ease-out;
+}
+
+@keyframes pulso {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+}
