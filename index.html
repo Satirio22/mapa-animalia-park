@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bloqueia o zoom automático ao tocar rápido na tela -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mapa Animália Park</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <header>
-        <h1>Mapa Animália Park</h1>
-        <p>Encontre atrações, banheiros e alimentação</p>
+    <!-- CABEÇALHO MOBILE -->
+    <header class="header-animalia">
+        <div class="logo-container">
+            <img src="logo-animalia.png" alt="Animália Park Logo" class="logo-central">
+        </div>
+        
+        <!-- BARRA DE SELEÇÃO DE MAPAS -->
+        <nav class="filtros">
+            <button class="btn-filtro active" onclick="trocarMapa('reserva', this)">Animália Reserva</button>
+            <button class="btn-filtro" onclick="trocarMapa('diversao', this)">Animália Diversão</button>
+        </nav>
     </header>
 
-    <!-- NAVEGAÇÃO DE ÁREAS -->
-    <nav class="filtros">
-        <button class="btn-filtro active" onclick="trocarMapa('reserva', this)">🦁 Animália Reserva</button>
-        <button class="btn-filtro" onclick="trocarMapa('diversao', this)">🎢 Animália Diversão</button>
-    </nav>
-
-    <!-- ÁREA DO MAPA -->
+    <!-- ÁREA DO MAPA OTIMIZADA PARA TOUCH -->
     <main class="mapa-container">
         <div id="mapa" class="mapa">
-            <img id="imagemMapa" src="mapa.zoo.png" alt="Mapa do parque">
+            <img id="imagemMapa" src="mapa.zoo.png" alt="Mapa do Parque">
             <div id="camadaPontos"></div>
         </div>
     </main>
 
-    <!-- CARD DE INFORMAÇÕES -->
-    <div id="janelaLocal" class="janela">
+    <!-- MODAL INFERIOR (BOTTOM SHEET) - MAIS FÁCIL PARA O POLEGAR -->
+    <div id="janelaLocal" class="janela" onclick="fecharAoClicarFora(event)">
         <div class="conteudo">
-            <button class="fechar" onclick="fecharLocal()">&times;</button>
+            <div class="barra-arraste"></div>
+            <button class="fechar" onclick="fecharLocal()" aria-label="Fechar">&times;</button>
             <h2 id="nomeLocal"></h2>
             <h3 id="areaLocal"></h3>
             <p id="descricaoLocal"></p>
@@ -40,7 +42,5 @@
     </div>
 
     <script src="script.js"></script>
-
 </body>
-
 </html>
