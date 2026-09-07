@@ -1,13 +1,12 @@
 * {
     box-sizing: border-box;
-    /* Remove o destaque cinza padrão do toque no Android/iOS */
     -webkit-tap-highlight-color: transparent; 
 }
 
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #ffffff; /* FUNDO BRANCO COMPLETO */
+    background: #ffffff;
     color: #333333;
     overflow-x: hidden;
 }
@@ -56,31 +55,30 @@ body {
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
-    /* Altura mínima de 44px para facilitar o toque com o polegar no celular */
     min-height: 44px;
     border-radius: 22px;
     transition: background 0.2s ease, color 0.2s ease;
     text-transform: uppercase;
 }
 
-/* DESTAQUE DO BOTÃO ATIVO */
 .filtros button.active {
     background: #ffffff;
     color: #8C1B92;
 }
 
-/* ÁREA DO MAPA */
+/* ÁREA DO MAPA COM SCROLL HORIZONTAL QUANDO NECESSÁRIO */
 .mapa-container {
     width: 100%;
-    padding: 15px 8px;
-    display: flex;
-    justify-content: center;
+    padding: 10px 0;
+    overflow-x: auto; /* Permite deslizar o mapa se a tela for muito pequena */
+    -webkit-overflow-scrolling: touch;
 }
 
 .mapa {
     position: relative;
     width: 100%;
-    max-width: 600px; /* Limite ideal para telas mobile */
+    min-width: 500px; /* Garante que o mapa não fique espremido demais */
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -88,22 +86,18 @@ body {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 12px;
-    /* Sombra leve para destacar a imagem do mapa no fundo branco */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
 }
 
-/* PONTOS NO MAPA - ÁREA DE TOQUE AMPLIADA PARA O POLEGAR */
+/* PONTOS NO MAPA */
 .ponto {
     position: absolute;
     transform: translate(-50%, -50%);
     background-color: #ffffff;
     border: 2px solid #8C1B92;
     border-radius: 50%;
-    /* Tamanho do botão visível */
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -112,14 +106,14 @@ body {
     will-change: transform;
 }
 
-/* Aumenta a área clicável invisível ao redor do ponto */
+/* ÁREA INVISÍVEL DE TOQUE AMPLIADA */
 .ponto::after {
     content: '';
     position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
 }
 
 .ponto:active {
@@ -127,7 +121,7 @@ body {
     background-color: #f0e6f2;
 }
 
-/* JANELA MODAL TIPO 'BOTTOM SHEET' (ESTILO APP MOBILE) */
+/* MODAL BOTTOM SHEET */
 .janela {
     display: none;
     position: fixed;
@@ -135,8 +129,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* Fundo semi-transparente leve */
-    backdrop-filter: blur(2px); /* Desfoque suave no fundo ao abrir o modal */
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
     justify-content: flex-end;
     flex-direction: column;
     z-index: 1000;
@@ -158,7 +152,6 @@ body {
     animation: deslizarParaCima 0.25s ease-out;
 }
 
-/* Puxador decorativo no topo do modal */
 .barra-arraste {
     width: 40px;
     height: 5px;
@@ -208,4 +201,18 @@ body {
     line-height: 1.5;
     color: #333333;
     margin: 0;
+}
+
+/* AJUSTES ESPECÍFICOS PARA DISPOSITIVOS MÓVEIS */
+@media (max-width: 768px) {
+    .ponto {
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+    }
+
+    .filtros button {
+        font-size: 11px;
+        min-height: 40px;
+    }
 }
