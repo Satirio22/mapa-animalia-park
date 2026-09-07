@@ -1,10 +1,8 @@
 // DADOS DOS MAPAS E SEUS PONTOS
 const dadosPark = {
-    // MAPA 1: ZOOLÓGICO / RESERVA
     reserva: {
         imagem: "mapa.zoo.png",
         pontos: [
-            // SERVIÇOS, BANHEIROS E TROCADOUROS
             { id: "ambulatorio", nome: "🚑 Ambulatório", area: "Ambulatório / Bombeiros Animália", desc: "Localizado na Vila Animália.", icone: "🚑", top: 20, left: 43 },
             { id: "banheiro-recepcao", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado na Recepção.", icone: "🚻", top: 21, left: 39 },
             { id: "banheiro-leao", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado após recinto Leão.", icone: "🚻", top: 42, left: 39 },
@@ -16,11 +14,7 @@ const dadosPark = {
             { id: "banheiro-hipopotamo", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado em frente recinto Hipopótamo.", icone: "🚻", top: 33, left: 66.5 },
             { id: "banheiro-saida-reserva", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado saída da Reserva/Vila Animália.", icone: "🚻", top: 13, left: 45 },
             { id: "banheiro-galpao", nome: "🚻 Banheiro Galpão Diversão", area: "Comum + Acessível", desc: "Banheiro Próximo à Saída do Diversão.", icone: "🚻", top: 15.5, left: 33.5 },
-
-            // ATRAÇÕES ANIMAIS
             { id: "leoes", nome: "Leões", area: "🦁 Animália Reserva", desc: "Área dos leões do parque.", icone: "🦁", top: 20, left: 10 },
-
-            // PONTOS DE ALIMENTAÇÃO
             { id: "cafe-recepcao", nome: "CAFÉ RECEPÇÃO", area: "☕ Café, Salgados e pipocas", desc: "Localizado na Recepção.", icone: "☕", top: 24, left: 41 },
             { id: "quiosque-leao", nome: "QUIOSQUE LEÃO", area: "🍿 Café, Salgados e pipocas", desc: "Logo após o recinto do Leão.", icone: "🍿", top: 46, left: 38 },
             { id: "quiosque-sucuarana", nome: "QUIOSQUE SUÇUARANA", area: "🍿 Salgados e pipocas", desc: "Em frente ao recinto Suçuarana.", icone: "🍿", top: 66, left: 44 },
@@ -41,68 +35,54 @@ const dadosPark = {
             { id: "diversao-indoor", nome: "🍟🍔 DIVERSÃO INDOOR", area: "Diversão e refeição, tudo em um só lugar!", desc: "🍔 Cesta Pic Nic.<br>🥮 Carrossel.<br>🥮 Mundo Doce.<br>🍿 Carrinho de Doce e Pipoca.", icone: "🏘️", top: 17, left: 28 }
         ]
     },
-
-    // MAPA 2: PARQUE DE DIVERSÃO
     diversao: {
         imagem: "mapa.diversao.png",
         pontos: [
-            // BANHEIROS
-            { id: "banheiro-cyber", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado ao lado do Cyber Hawks.", icone: "🚻", top: 16, left: 25 },
-
-            // ALIMENTAÇÃO
+            { id: "banheiro-cyber", nome: "Restaurante e Banheiro Cyber", area: "Comum + Acessível", desc: "Localizado ao lado do Cyber Hawks.", icone: "🚻", top: 16, left: 25 },
             { id: "quiosque-splash", nome: "QUIÓSQUE SPLASH", area: "🍿 Café, Salgados e pipocas", desc: "Localizado próximo ao vulcão.", icone: "🍿", top: 55, left: 8 },
             { id: "quiosque-viking", nome: "QUIÓSQUE VIKING", area: "🍿 Café, Salgados e pipocas", desc: "Localizado na entrada do Outdoor.", icone: "🍿", top: 42, left: 42 },
-
-            // ATRAÇÕES E ALIMENTAÇÃO
             { id: "montanha-russa", nome: "Montanha-russa", area: "🎢 Animália Diversão", desc: "Uma das principais atrações do parque indoor.", icone: "🎢", top: 10, left: 10 },
-            { id: "alimentacao-indoor", nome: "Alimentação", area: "🍔 Animália Diversão", desc: "Ponto de alimentação do parque indoor.", icone: "🍔", top: 10, left: 10 }
+            { id: "alimentacao-indoor", nome: "Alimentação Indoor", area: "🍔 Animália Diversão", desc: "Ponto de alimentação do parque indoor.", icone: "🍔", top: 10, left: 10 }
         ]
     }
 };
 
-// FUNÇÃO PARA TROCAR O MAPA E CARREGAR PONTOS
+// TROCA DE MAPA
 function trocarMapa(categoria, botaoClicado) {
     if (botaoClicado) {
         document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('active'));
         botaoClicado.classList.add('active');
-    } else {
-        // Atualiza a seleção visual do botão caso seja aberto por QR Code
-        const botoes = document.querySelectorAll('.btn-filtro');
-        botoes.forEach(btn => {
-            const ehReserva = categoria === 'reserva' && btn.textContent.includes('Reserva');
-            const ehDiversao = categoria === 'diversao' && btn.textContent.includes('Diversão');
-            btn.classList.toggle('active', ehReserva || ehDiversao);
-        });
     }
 
     const mapaInfo = dadosPark[categoria];
     if (!mapaInfo) return;
 
-    // Atualiza a imagem do mapa
-    const imgElement = document.getElementById("imagemMapa");
-    imgElement.src = mapaInfo.imagem;
+    document.getElementById("imagemMapa").src = mapaInfo.imagem;
 
-    // Renderiza os pontos da categoria selecionada
     const camada = document.getElementById("camadaPontos");
     camada.innerHTML = "";
 
     mapaInfo.pontos.forEach(ponto => criarMarcador(ponto, camada));
 }
 
-// CRIAR MARCADOR
+// CRIA OS MARCADORES
 function criarMarcador(ponto, container) {
     const btn = document.createElement("button");
     btn.className = "ponto";
     btn.style.top = `${ponto.top}%`;
     btn.style.left = `${ponto.left}%`;
     btn.innerHTML = ponto.icone;
+    btn.setAttribute("aria-label", ponto.nome);
     
-    btn.onclick = () => abrirLocal(ponto.nome, ponto.area, ponto.desc);
+    btn.onclick = (e) => {
+        e.stopPropagation();
+        abrirLocal(ponto.nome, ponto.area, ponto.desc);
+    };
     
     container.appendChild(btn);
 }
 
-// POP-UP DE INFORMAÇÕES
+// MODAL SLIDE (BOTTOM SHEET)
 function abrirLocal(nome, area, descricao) {
     document.getElementById("nomeLocal").textContent = nome;
     document.getElementById("areaLocal").textContent = area;
@@ -114,7 +94,13 @@ function fecharLocal() {
     document.getElementById("janelaLocal").classList.remove("ativa");
 }
 
-// CARREGA O MAPA E LEITOR DE QR CODE
+function fecharAoClicarFora(event) {
+    if (event.target.id === "janelaLocal") {
+        fecharLocal();
+    }
+}
+
+// SUPORTE A QR CODE NA URL
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const mapaParam = urlParams.get('mapa');
@@ -122,10 +108,16 @@ window.onload = () => {
 
     const categoriaInicial = (mapaParam && dadosPark[mapaParam]) ? mapaParam : 'reserva';
     
-    // Carrega o mapa inicial
+    // Atualiza o estado dos botões visualmente no carregamento
+    const botoes = document.querySelectorAll('.btn-filtro');
+    botoes.forEach(btn => {
+        const ehReserva = categoriaInicial === 'reserva' && btn.textContent.includes('Reserva');
+        const ehDiversao = categoriaInicial === 'diversao' && btn.textContent.includes('Diversão');
+        btn.classList.toggle('active', ehReserva || ehDiversao);
+    });
+
     trocarMapa(categoriaInicial);
 
-    // Se o QR Code contiver um ponto específico, abre o modal automaticamente
     if (pontoParam) {
         const pontoEncontrado = dadosPark[categoriaInicial].pontos.find(p => p.id === pontoParam);
         if (pontoEncontrado) {
