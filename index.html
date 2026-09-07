@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Animália Park</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Mapa Animália Park</h1>
+        <p>Encontre atrações, banheiros e alimentação</p>
+    </header>
+
+    <!-- NAVEGAÇÃO DE ÁREAS -->
+    <nav class="filtros">
+        <button class="btn-filtro active" onclick="trocarMapa('reserva', this)">🦁 Animália Reserva</button>
+        <button class="btn-filtro" onclick="trocarMapa('diversao', this)">🎢 Animália Diversão</button>
+    </nav>
+
+    <!-- ÁREA DO MAPA -->
+    <main class="mapa-container">
+        <div id="mapa" class="mapa">
+            <img id="imagemMapa" src="mapa.zoo.png" alt="Mapa do parque">
+            <div id="camadaPontos"></div>
+        </div>
+    </main>
+
+    <!-- CARD DE INFORMAÇÕES -->
+    <div id="janelaLocal" class="janela">
+        <div class="conteudo">
+            <button class="fechar" onclick="fecharLocal()">&times;</button>
+            <h2 id="nomeLocal"></h2>
+            <h3 id="areaLocal"></h3>
+            <p id="descricaoLocal"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
