@@ -2,27 +2,26 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <!-- Bloqueia o zoom automático ao tocar rápido na tela -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Permite zoom com os dedos no celular -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <title>Mapa Animália Park</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- CABEÇALHO MOBILE -->
+    <!-- CABEÇALHO ROXO FIXO NO TOPO -->
     <header class="header-animalia">
         <div class="logo-container">
             <img src="logo-animalia.png" alt="Animália Park Logo" class="logo-central">
         </div>
         
-        <!-- BARRA DE SELEÇÃO DE MAPAS -->
         <nav class="filtros">
             <button class="btn-filtro active" onclick="trocarMapa('reserva', this)">Animália Reserva</button>
             <button class="btn-filtro" onclick="trocarMapa('diversao', this)">Animália Diversão</button>
         </nav>
     </header>
 
-    <!-- ÁREA DO MAPA OTIMIZADA PARA TOUCH -->
+    <!-- ÁREA DO MAPA COM SLIDE/SCROLL -->
     <main class="mapa-container">
         <div id="mapa" class="mapa">
             <img id="imagemMapa" src="mapa.zoo.png" alt="Mapa do Parque">
@@ -30,7 +29,7 @@
         </div>
     </main>
 
-    <!-- MODAL INFERIOR (BOTTOM SHEET) - MAIS FÁCIL PARA O POLEGAR -->
+    <!-- MODAL INFERIOR (BOTTOM SHEET) -->
     <div id="janelaLocal" class="janela" onclick="fecharAoClicarFora(event)">
         <div class="conteudo">
             <div class="barra-arraste"></div>
