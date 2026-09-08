@@ -9,12 +9,12 @@ html, body {
     width: 100%;
     height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #ffffff;
+    background: #111111;
     color: #333333;
-    overflow: hidden; /* Impede rolagem global do celular */
+    overflow: hidden;
 }
 
-/* CABEÇALHO ROXO FIXO */
+/* HEADER FIXO ROXO */
 .header-animalia {
     background-color: #4A154B;
     width: 100%;
@@ -24,7 +24,6 @@ html, body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* LOGO CENTRAL */
 .logo-container {
     position: absolute;
     top: 6px;
@@ -39,7 +38,6 @@ html, body {
     filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.3));
 }
 
-/* FAIXA VIOLETA E BOTÕES */
 .filtros {
     position: absolute;
     bottom: 0;
@@ -71,7 +69,7 @@ html, body {
     color: #8C1B92;
 }
 
-/* ESTRUTURA PRINCIPAL */
+/* LAYOUT TELA INTEGRAL */
 .layout-principal {
     display: flex;
     flex-direction: row;
@@ -79,13 +77,12 @@ html, body {
     height: calc(100vh - 80px);
 }
 
-/* CONTÊINER DO MAPA DINÂMICO */
 .mapa-container {
     flex: 1;
     height: 100%;
     position: relative;
     overflow: hidden;
-    background-color: #2b2b2b;
+    background-color: #1a1a1a;
     cursor: grab;
     touch-action: none;
 }
@@ -94,31 +91,78 @@ html, body {
     cursor: grabbing;
 }
 
-/* ÁREA TRANSFORMÁVEL DO MAPA */
+/* ÁREA DE RENDERIZAÇÃO DO MAPA */
 .mapa {
     position: absolute;
     top: 0;
     left: 0;
     transform-origin: 0 0;
     will-change: transform;
-    display: inline-block; /* Mantém as proporções da imagem */
 }
 
 .mapa img {
+    width: 100%;
+    height: 100%;
     display: block;
-    width: auto;
-    height: auto;
-    max-width: none;
-    max-height: none;
     pointer-events: none;
     user-select: none;
 }
 
-/* BOTÕES FLUTUANTES DE CONTROLE DE ZOOM */
+/* CAMADA DOS PONTOS */
+#camadaPontos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.ponto {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 2px solid #8C1B92;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    padding: 2px;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.ponto::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+}
+
+.icone-marcador {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.ponto span {
+    font-size: 13px;
+    line-height: 1;
+    pointer-events: none;
+}
+
+/* BOTOES CONTROLE ZOOM */
 .zoom-controls {
     position: absolute;
-    right: 12px;
-    bottom: 15px;
+    right: 15px;
+    bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -126,26 +170,25 @@ html, body {
 }
 
 .zoom-controls button {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: none;
     background: #ffffff;
     color: #8C1B92;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
     cursor: pointer;
 }
 
-/* LEGENDA COMPACTA */
+/* LEGENDA LATERAL */
 .legenda-container {
-    width: 250px;
+    width: 260px;
     height: 100%;
     background-color: #ffffff;
-    border-left: 2px solid #f0f0f0;
+    border-left: 2px solid #eeeeee;
     padding: 12px;
-    box-shadow: -2px 0 8px rgba(0,0,0,0.05);
     flex-shrink: 0;
     overflow-y: auto;
 }
@@ -155,7 +198,6 @@ html, body {
     color: #8C1B92;
     font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     border-bottom: 2px solid #8C1B92;
     padding-bottom: 4px;
 }
@@ -174,7 +216,6 @@ html, body {
     align-items: center;
     gap: 8px;
     font-size: 12px;
-    line-height: 1.2;
     color: #444;
 }
 
@@ -182,61 +223,9 @@ html, body {
     width: 20px;
     height: 20px;
     object-fit: contain;
-    flex-shrink: 0;
 }
 
-/* MARCADORES SOBRE O MAPA */
-#camadaPontos {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.ponto {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    border: 1.5px solid #8C1B92;
-    border-radius: 50%;
-    width: 22px; /* Reduzido de 28px para não encavalar no mobile */
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    padding: 2px;
-    pointer-events: auto;
-    z-index: 10;
-}
-
-/* ÁREA TRANSPARENTE PARA FACILITAR O TOQUE NO CELULAR */
-.ponto::after {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-}
-
-.icone-marcador {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    pointer-events: none;
-}
-
-.ponto span {
-    font-size: 11px;
-    line-height: 1;
-    pointer-events: none;
-}
-
-/* MODAL / BOTTOM SHEET */
+/* MODAL INFORMATIVO */
 .janela {
     display: none;
     position: fixed;
@@ -244,7 +233,7 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(2px);
     justify-content: flex-end;
     flex-direction: column;
@@ -265,7 +254,7 @@ html, body {
     overflow-y: auto;
     position: relative;
     text-align: center;
-    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.2);
     animation: deslizarParaCima 0.25s ease-out;
 }
 
@@ -315,22 +304,21 @@ html, body {
     color: #333333;
 }
 
-/* RESPONSIVIDADE PARA CELULARES */
+/* RESPONSIVO MOBILE */
 @media (max-width: 768px) {
     .layout-principal {
         flex-direction: column;
     }
 
     .mapa-container {
-        height: 68%;
+        height: 70%;
     }
 
     .legenda-container {
         width: 100%;
-        height: 32%;
+        height: 30%;
         border-left: none;
-        border-top: 2px solid #f0f0f0;
-        padding: 8px 12px;
+        border-top: 2px solid #eeeeee;
     }
 
     .legenda-lista {
