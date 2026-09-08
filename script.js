@@ -135,7 +135,7 @@ function resetZoom() {
 
 function trocarMapa(categoria, botaoClicado) {
     if (botaoClicado) {
-        document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.filtros button').forEach(btn => btn.classList.remove('active'));
         botaoClicado.classList.add('active');
     }
 
@@ -147,12 +147,19 @@ function trocarMapa(categoria, botaoClicado) {
 
     camada.innerHTML = "";
 
+    // Força recarregar manipulador para garantir o recálculo do tamanho
     imgMapa.onload = () => {
         resetZoom();
+        camada.innerHTML = "";
         mapaInfo.pontos.forEach(ponto => criarMarcador(ponto, camada));
     };
 
     imgMapa.src = mapaInfo.imagem;
+
+    // Se a imagem já estivesse no cache, forçamos a execução
+    if (imgMapa.complete && imgMapa.naturalWidth !== 0) {
+        imgMapa.onload();
+    }
 
     if (mapaInfo.legenda) {
         atualizarLegenda(mapaInfo.legenda);
