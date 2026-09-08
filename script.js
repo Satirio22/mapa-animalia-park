@@ -69,6 +69,10 @@ let startDistance = 0;
 function atualizarTransformacao() {
     const mapa = document.getElementById("mapa");
     if (!mapa) return;
+    
+    // Atualiza a variável CSS usada para contrabalançar o tamanho dos botões
+    mapa.style.setProperty("--map-scale", scale);
+    
     mapa.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
 }
 
@@ -147,7 +151,6 @@ function trocarMapa(categoria, botaoClicado) {
 
     camada.innerHTML = "";
 
-    // Força recarregar manipulador para garantir o recálculo do tamanho
     imgMapa.onload = () => {
         resetZoom();
         camada.innerHTML = "";
@@ -156,7 +159,6 @@ function trocarMapa(categoria, botaoClicado) {
 
     imgMapa.src = mapaInfo.imagem;
 
-    // Se a imagem já estivesse no cache, forçamos a execução
     if (imgMapa.complete && imgMapa.naturalWidth !== 0) {
         imgMapa.onload();
     }
