@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <!-- Permite zoom com os dedos no celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <title>Mapa Animália Park</title>
     <link rel="stylesheet" href="style.css">
@@ -21,18 +20,43 @@
         </nav>
     </header>
 
-    <!-- ÁREA DO MAPA COM SLIDE/SCROLL -->
-    <main class="mapa-container">
-        <div id="mapa" class="mapa">
-            <img id="imagemMapa" src="mapa.zoo.png" alt="Mapa do Parque">
-            <div id="camadaPontos"></div>
-            
-            <!-- ÍCONE DA POSIÇÃO DO USUÁRIO -->
-            <div id="userLocation" class="user-marker" style="display: none;">
-                <div class="pulsar"></div>
-                📍
+    <!-- LAYOUT PRINCIPAL (MAPA + LEGENDA) -->
+    <main class="layout-principal">
+        <!-- ÁREA DO MAPA -->
+        <div class="mapa-container">
+            <div id="mapa" class="mapa">
+                <img id="imagemMapa" src="mapa.zoo.png" alt="Mapa do Parque">
+                <div id="camadaPontos"></div>
+                
+                <!-- ÍCONE DA POSIÇÃO DO USUÁRIO -->
+                <div id="userLocation" class="user-marker" style="display: none;">
+                    <div class="pulsar"></div>
+                    📍
+                </div>
             </div>
         </div>
+
+        <!-- PAINEL DE LEGENDA LATERAL -->
+        <aside class="legenda-container">
+            <h3>Legenda</h3>
+            <ul class="legenda-lista">
+
+                <li><img src="icons/estacionamento.png" alt="Estacionamento"> <span>Estacionamentos</span></li>
+                <li><img src="icons/wc.png" alt="Banheiro"> <span>Banheiros (Comum / Acessível)</span></li>
+                <li><img src="icons/ambulatorio.png" alt="Ambulatório"> <span>Ambulatório / Primeiros Socorros</span></li>
+                <li><img src="icons/recepçao.png" alt="Recepção"> <span>Recepção / Atendimento</span></li>
+                <li><img src="icons/Aviario.png" alt="Aviário"> <span>Aviário</span></li>
+                <li><img src="icons/fazenda.png" alt="Fazendinhas"> <span>Fazendinha</span></li>
+                <li><img src="icons/rest.central.png" alt="Restaurante Central"> <span>Restaurante Central</span></li>
+                <li><img src="icons/food-park.png" alt="Food Park"> <span>Food Park</span></li>
+                <li><img src="icons/vila.png" alt="Vila Animália"> <span>Vila Animália</span></li>
+                <li><img src="icons/div-ab.png" alt="Animalia Diversão"> <span>Diversão Alimentação</span></li>
+                <li><img src="icons/div.png" alt="Vila Animália"> <span>Animalia Diversão</span></li>
+                <li><img src="icons/div.png" alt="Atração"> <span>Animalia Aventura</span></li>
+                <li><img src="icons/quiosque.png" alt="Vila Animália"> <span>Quiosques Reserva</span></li>
+
+            </ul>
+        </aside>
     </main>
 
     <!-- MODAL INFERIOR (BOTTOM SHEET) -->
