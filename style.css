@@ -85,7 +85,7 @@ html, body {
     height: 100%;
     position: relative;
     overflow: hidden;
-    background-color: #e5e5e5;
+    background-color: #2b2b2b;
     cursor: grab;
     touch-action: none;
 }
@@ -99,28 +99,26 @@ html, body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     transform-origin: 0 0;
     will-change: transform;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block; /* Mantém as proporções da imagem */
 }
 
 .mapa img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
     pointer-events: none;
     user-select: none;
 }
 
-/* BOTOES FLUTUANTES DE CONTROLE DE ZOOM */
+/* BOTÕES FLUTUANTES DE CONTROLE DE ZOOM */
 .zoom-controls {
     position: absolute;
-    right: 15px;
-    bottom: 25px;
+    right: 12px;
+    bottom: 15px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -128,15 +126,15 @@ html, body {
 }
 
 .zoom-controls button {
-    width: 42px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     border: none;
     background: #ffffff;
     color: #8C1B92;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
     cursor: pointer;
 }
 
@@ -187,35 +185,54 @@ html, body {
     flex-shrink: 0;
 }
 
-/* MARCADORES PADRÃO COM ÍCONES */
+/* MARCADORES SOBRE O MAPA */
 #camadaPontos {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    pointer-events: none;
 }
 
 .ponto {
     position: absolute;
     transform: translate(-50%, -50%);
     background-color: #ffffff;
-    border: 1px solid #8C1B92;
+    border: 1.5px solid #8C1B92;
     border-radius: 50%;
-    width: 28px;
-    height: 28px;
+    width: 22px; /* Reduzido de 28px para não encavalar no mobile */
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     padding: 2px;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+/* ÁREA TRANSPARENTE PARA FACILITAR O TOQUE NO CELULAR */
+.ponto::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
 }
 
 .icone-marcador {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    pointer-events: none;
+}
+
+.ponto span {
+    font-size: 11px;
+    line-height: 1;
     pointer-events: none;
 }
 
@@ -305,12 +322,12 @@ html, body {
     }
 
     .mapa-container {
-        height: 70%;
+        height: 68%;
     }
 
     .legenda-container {
         width: 100%;
-        height: 30%;
+        height: 32%;
         border-left: none;
         border-top: 2px solid #f0f0f0;
         padding: 8px 12px;
