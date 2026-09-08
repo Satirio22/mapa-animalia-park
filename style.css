@@ -3,47 +3,52 @@
     -webkit-tap-highlight-color: transparent; 
 }
 
-body {
+html, body {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background: #ffffff;
     color: #333333;
-    overflow-x: hidden;
+    overflow: hidden; /* Impede rolagem global do celular */
 }
 
 /* CABEÇALHO ROXO FIXO */
 .header-animalia {
     background-color: #4A154B;
     width: 100%;
-    position: sticky;
-    top: 0;
+    height: 80px;
+    position: relative;
     z-index: 100;
-    padding-top: 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* LOGO CENTRAL */
 .logo-container {
     position: absolute;
-    top: 4px;
+    top: 6px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
 }
 
 .logo-central {
-    height: 52px;
+    height: 40px;
     width: auto;
     filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.3));
 }
 
 /* FAIXA VIOLETA E BOTÕES */
 .filtros {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     background-color: #8C1B92;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 6px 10px;
+    padding: 4px 10px;
     gap: 8px;
 }
 
@@ -52,11 +57,11 @@ body {
     border: none;
     background: transparent;
     color: #ffffff;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     cursor: pointer;
-    min-height: 44px;
-    border-radius: 22px;
+    height: 32px;
+    border-radius: 16px;
     transition: background 0.2s ease, color 0.2s ease;
     text-transform: uppercase;
 }
@@ -66,46 +71,85 @@ body {
     color: #8C1B92;
 }
 
-/* ESTRUTURA PRINCIPAL (MAPA + LEGENDA) */
+/* ESTRUTURA PRINCIPAL */
 .layout-principal {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    align-items: flex-start;
+    width: 100vw;
+    height: calc(100vh - 80px);
 }
 
-/* CONTÊINER COM SCROLL/DESLIZE LIVRE DO MAPA */
+/* CONTÊINER DO MAPA DINÂMICO */
 .mapa-container {
     flex: 1;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 10px;
-    background-color: #f9f9f9;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #e5e5e5;
+    cursor: grab;
+    touch-action: none;
 }
 
-/* MANTÉM O MAPA ESPAÇOSO NO CELULAR */
+.mapa-container:active {
+    cursor: grabbing;
+}
+
+/* ÁREA TRANSFORMÁVEL DO MAPA */
 .mapa {
-    position: relative;
-    width: 1000px;
-    max-width: none;
-    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 0;
+    will-change: transform;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mapa img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 8px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* BOTOES FLUTUANTES DE CONTROLE DE ZOOM */
+.zoom-controls {
+    position: absolute;
+    right: 15px;
+    bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 90;
+}
+
+.zoom-controls button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: #ffffff;
+    color: #8C1B92;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    cursor: pointer;
 }
 
 /* LEGENDA COMPACTA */
 .legenda-container {
-    width: 260px;
+    width: 250px;
+    height: 100%;
     background-color: #ffffff;
     border-left: 2px solid #f0f0f0;
     padding: 12px;
     box-shadow: -2px 0 8px rgba(0,0,0,0.05);
     flex-shrink: 0;
+    overflow-y: auto;
 }
 
 .legenda-container h3 {
@@ -125,8 +169,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    max-height: 70vh;
-    overflow-y: auto;
 }
 
 .legenda-lista li {
@@ -146,21 +188,28 @@ body {
 }
 
 /* MARCADORES PADRÃO COM ÍCONES */
+#camadaPontos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .ponto {
     position: absolute;
     transform: translate(-50%, -50%);
     background-color: #ffffff;
     border: 1px solid #8C1B92;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-    padding: 3px;
-    will-change: transform;
+    padding: 2px;
 }
 
 .icone-marcador {
@@ -168,41 +217,6 @@ body {
     height: 100%;
     object-fit: contain;
     pointer-events: none;
-}
-
-/* ESTILO ESPECÍFICO PARA PONTOS COM FOTO/IMAGEM */
-.ponto-foto {
-    width: 42px;
-    height: 42px;
-    border: 2px solid #8C1B92;
-    border-radius: 8px;
-    padding: 0;
-    overflow: hidden;
-    background-color: #ffffff;
-}
-
-.foto-marcador {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    pointer-events: none;
-}
-
-/* ÁREA INVISÍVEL DE CLIQUE AMPLIADA */
-.ponto::after {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-}
-
-.ponto:active {
-    transform: translate(-50%, -50%) scale(1.3);
-    background-color: #f0e6f2;
-    z-index: 50;
 }
 
 /* MODAL / BOTTOM SHEET */
@@ -226,10 +240,12 @@ body {
 
 .conteudo {
     background-color: #ffffff;
-    padding: 20px 20px 30px 20px;
+    padding: 20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     width: 100%;
+    max-height: 70vh;
+    overflow-y: auto;
     position: relative;
     text-align: center;
     box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.15);
@@ -255,62 +271,31 @@ body {
     right: 15px;
     background: #f0f0f0;
     border: none;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     color: #555555;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .conteudo h2 {
     margin: 10px 0 5px;
-    font-size: 20px;
+    font-size: 18px;
     color: #8C1B92;
 }
 
 .conteudo h3 {
     margin: 0 0 10px;
-    font-size: 14px;
+    font-size: 13px;
     color: #666666;
-    font-weight: 500;
 }
 
 .conteudo p {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.4;
     color: #333333;
-    margin: 0;
-}
-
-/* MARCADOR DE GEOLOCALIZAÇÃO DO USUÁRIO */
-.user-marker {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    z-index: 90;
-    font-size: 20px;
-    pointer-events: none;
-}
-
-.pulsar {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 30px;
-    height: 30px;
-    transform: translate(-50%, -50%);
-    background-color: rgba(74, 21, 75, 0.4);
-    border-radius: 50%;
-    animation: pulso 1.8s infinite ease-out;
-}
-
-@keyframes pulso {
-    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
 }
 
 /* RESPONSIVIDADE PARA CELULARES */
@@ -318,18 +303,22 @@ body {
     .layout-principal {
         flex-direction: column;
     }
-    
+
+    .mapa-container {
+        height: 70%;
+    }
+
     .legenda-container {
         width: 100%;
+        height: 30%;
         border-left: none;
         border-top: 2px solid #f0f0f0;
-        padding: 10px 15px;
+        padding: 8px 12px;
     }
 
     .legenda-lista {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 6px 10px;
-        max-height: 150px;
     }
 }
