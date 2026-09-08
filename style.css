@@ -118,7 +118,8 @@ html, body {
     pointer-events: none;
 }
 
-/* CORREÇÃO PRINCIPAL: MARCADORES COM TAMANHO FIXO MANDATÓRIO */
+/* CORREÇÃO DOS MARCADORES EM AMBOS OS MAPAS */
+#camadaPontos .ponto,
 .ponto {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -127,15 +128,18 @@ html, body {
     border-radius: 50%;
     width: 48px !important;
     height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-    padding: 3px;
+    padding: 4px;
     pointer-events: auto;
     z-index: 10;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .ponto::after {
@@ -147,7 +151,8 @@ html, body {
     bottom: -8px;
 }
 
-/* TRAVA AS IMAGENS DENTRO DOS PONTOS PARA NÃO EXPLODIREM DE TAMANHO */
+/* TRAVA AS IMAGENS DENTRO DOS PONTOS */
+#camadaPontos .ponto img,
 .ponto img, 
 .icone-marcador {
     width: 100% !important;
@@ -159,8 +164,9 @@ html, body {
     display: block;
 }
 
+#camadaPontos .ponto span,
 .ponto span {
-    font-size: 20px;
+    font-size: 22px !important;
     line-height: 1;
     pointer-events: none;
 }
