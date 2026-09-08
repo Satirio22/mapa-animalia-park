@@ -60,7 +60,6 @@ const dadosPark = {
     }
 };
 
-// VARIÁVEIS DE ZOOM E ARRASTE
 let scale = 1;
 let pointX = 0;
 let pointY = 0;
@@ -75,7 +74,6 @@ function atualizarTransformacao() {
     mapa.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
 }
 
-// CRIA OS MARCADORES NO MAPA
 function criarMarcador(ponto, camada) {
     const el = document.createElement("div");
     el.className = "ponto";
@@ -95,53 +93,51 @@ function criarMarcador(ponto, camada) {
     camada.appendChild(el);
 }
 
-// ATUALIZA A LEGENDA DINAMICAMENTE
 function atualizarLegenda(itensLegenda) {
     const lista = document.getElementById("legendaLista");
     if (!lista) return;
 
     lista.innerHTML = "";
-
     itensLegenda.forEach(item => {
         const li = document.createElement("li");
-        
         if (item.img) {
             li.innerHTML = `<img src="${item.img}" alt="${item.texto}"> <span>${item.texto}</span>`;
         } else {
             li.innerHTML = `<span>${item.icone || ''}</span> <span>${item.texto}</span>`;
         }
-
         lista.appendChild(li);
     });
 }
 
-// RECALCULA O ENQUADRAMENTO PERFEITO NA TELA
 function resetZoom() {
     const container = document.getElementById("mapaContainer");
     const imgMapa = document.getElementById("imagemMapa");
+    const mapaWrapper = document.getElementById("mapa");
 
     if (!container || !imgMapa || imgMapa.naturalWidth === 0) return;
 
+    // Define dimensões fixas reais da imagem no elemento ancestral
+    const realWidth = imgMapa.naturalWidth;
+    const realHeight = imgMapa.naturalHeight;
+
+    mapaWrapper.style.width = realWidth + "px";
+    mapaWrapper.style.height = realHeight + "px";
+
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
-    const imgWidth = imgMapa.naturalWidth;
-    const imgHeight = imgMapa.naturalHeight;
 
-    // Escala para ajustar perfeitamente à largura do dispositivo
-    scale = containerWidth / imgWidth;
-
-    if (imgHeight * scale < containerHeight) {
-        scale = containerHeight / imgHeight;
-    }
+    // Calcula a escala para caber totalmente na tela
+    const scaleX = containerWidth / realWidth;
+    const scaleY = containerHeight / realHeight;
+    scale = Math.min(scaleX, scaleY);
 
     // Centraliza o mapa
-    pointX = (containerWidth - imgWidth * scale) / 2;
-    pointY = (containerHeight - imgHeight * scale) / 2;
+    pointX = (containerWidth - realWidth * scale) / 2;
+    pointY = (containerHeight - realHeight * scale) / 2;
 
     atualizarTransformacao();
 }
 
-// TROCA DE MAPA E REFRESH DOS PONTOS/LEGENDA
 function trocarMapa(categoria, botaoClicado) {
     if (botaoClicado) {
         document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('active'));
@@ -154,21 +150,20 @@ function trocarMapa(categoria, botaoClicado) {
     const imgMapa = document.getElementById("imagemMapa");
     const camada = document.getElementById("camadaPontos");
 
+    camada.innerHTML = "";
+
     imgMapa.onload = () => {
         resetZoom();
+        mapaInfo.pontos.forEach(ponto => criarMarcador(ponto, camada));
     };
 
     imgMapa.src = mapaInfo.imagem;
-    camada.innerHTML = "";
-
-    mapaInfo.pontos.forEach(ponto => criarMarcador(ponto, camada));
 
     if (mapaInfo.legenda) {
         atualizarLegenda(mapaInfo.legenda);
     }
 }
 
-// EXIBIÇÃO DO MODAL
 function abrirLocal(ponto) {
     document.getElementById("nomeLocal").innerText = ponto.nome;
     document.getElementById("areaLocal").innerText = ponto.area;
@@ -186,23 +181,20 @@ function fecharAoClicarFora(e) {
     }
 }
 
-// CONTROLES DE ZOOM MANUAIS (+ / - / RESET)
 function zoomIn() {
-    scale = Math.min(scale + 0.3, 3.5);
+    scale = Math.min(scale + 0.25, 3.0);
     atualizarTransformacao();
 }
 
 function zoomOut() {
-    scale = Math.max(scale - 0.3, 0.5);
+    scale = Math.max(scale - 0.25, 0.2);
     atualizarTransformacao();
 }
 
-// SISTEMA DE GESTOS E PAN NO CELULAR
 function inicializarGestos() {
     const container = document.getElementById("mapaContainer");
     if (!container) return;
 
-    // ARRASTE (MOUSE / TOUCH)
     container.addEventListener("mousedown", (e) => {
         isDragging = true;
         startX = e.clientX - pointX;
@@ -220,7 +212,6 @@ function inicializarGestos() {
         isDragging = false;
     });
 
-    // TOUCH (TOQUE CELULAR & PINÇA)
     container.addEventListener("touchstart", (e) => {
         if (e.touches.length === 1) {
             isDragging = true;
@@ -246,7 +237,7 @@ function inicializarGestos() {
                 e.touches[0].clientY - e.touches[1].clientY
             );
             const factor = currentDist / startDistance;
-            scale = Math.min(Math.max(scale * factor, 0.5), 3.5);
+            scale = Math.min(Math.max(scale * factor, 0.2), 3.0);
             startDistance = currentDist;
             atualizarTransformacao();
         }
@@ -255,9 +246,10 @@ function inicializarGestos() {
     container.addEventListener("touchend", () => {
         isDragging = false;
     });
+
+    window.addEventListener("resize", resetZoom);
 }
 
-// INICIALIZA O MAPA QUANDO A PÁGINA CARREGA
 document.addEventListener("DOMContentLoaded", () => {
     trocarMapa('reserva');
     inicializarGestos();
