@@ -118,18 +118,23 @@ html, body {
     pointer-events: none;
 }
 
-/* CORREÇÃO DOS MARCADORES EM AMBOS OS MAPAS */
+/* CORREÇÃO DOS BOTÕES/MARCADORES EM AMBOS OS MAPAS */
 #camadaPontos .ponto,
 .ponto {
     position: absolute;
-    transform: translate(-50%, -50%);
+    /* Anula a escala do zoom do mapa para manter tamanho constante */
+    transform: translate(-50%, -50%) scale(calc(1 / var(--map-scale, 1)));
+    transform-origin: center center;
+
     background-color: #ffffff;
     border: 2px solid #8C1B92;
     border-radius: 50%;
+    
     width: 48px !important;
     height: 48px !important;
     min-width: 48px !important;
     min-height: 48px !important;
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -138,7 +143,6 @@ html, body {
     padding: 4px;
     pointer-events: auto;
     z-index: 10;
-    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -151,7 +155,7 @@ html, body {
     bottom: -8px;
 }
 
-/* TRAVA AS IMAGENS DENTRO DOS PONTOS */
+/* IMAGENS DENTRO DOS BOTÕES DOS LOCAIS */
 #camadaPontos .ponto img,
 .ponto img, 
 .icone-marcador {
