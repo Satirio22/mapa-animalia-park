@@ -3,46 +3,60 @@ const dadosPark = {
     reserva: {
         imagem: "mapa.zoo.png",
         pontos: [
-            { id: "ambulatorio", nome: "🚑 Ambulatório", area: "Ambulatório / Bombeiros Animália", desc: "Localizado na Vila Animália.", icone: "🚑", top: 26, left: 53 },
-            { id: "banheiro-recepcao", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado na Recepção.", icone: "🚻", top: 24, left: 49 },
-            { id: "banheiro-leao", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado após recinto Leão.", icone: "🚻", top: 45.5, left: 42.5 },
-            { id: "banheiro-caverna", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado na Caverna/Aviário.", icone: "🚻", top: 62, left: 38 },
-            { id: "banheiro-fazendinha", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado sentido Fazendinha.", icone: "🚻", top: 78.5, left: 60.5 },
-            { id: "banheiro-foodpark", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado no Food Park.", icone: "🚻", top: 60.5, left: 74 },
-            { id: "banheiro-baoba", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado no Restaurante Central Baobá.", icone: "🚻", top: 52, left: 52 },
-            { id: "banheiro-borboletas", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado no Jardim das Borboletas.", icone: "🚻", top: 55, left: 57 },
-            { id: "banheiro-hipopotamo", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado em frente recinto Hipopótamo.", icone: "🚻", top: 43, left: 68 },
-            { id: "banheiro-saida-reserva", nome: "🚻 Banheiro", area: "Comum + Acessível", desc: "Localizado saída da Reserva/Vila Animália.", icone: "🚻", top: 18, left: 57 },
-            { id: "banheiro-galpao", nome: "🚻 Banheiro Galpão Diversão", area: "Comum + Acessível", desc: "Banheiro Próximo à Saída do Diversão.", icone: "🚻", top: 19, left: 40 },
-            { id: "cafe-recepcao", nome: "CAFÉ RECEPÇÃO", area: "☕ Café, Salgados e pipocas", desc: "Localizado na Recepção.", icone: "☕", top: 27, left: 50 },
+            { id: "AMBULATÓRIO", nome: "🚑 AMBULATÓRIO", area: "Ambulatório / Bombeiros Animália", desc: "Localizado na Vila Animália.",  icone: "icons/ambulatorio.png", top: 26, left: 53 },
             { id: "quiosque-leao", nome: "QUIOSQUE LEÃO", area: "🍿 Café, Salgados e pipocas", desc: "Logo após o recinto do Leão.", icone: "🍿", top: 49, left: 41 },
-            { id: "cafe-caverna", nome: "CAFE CAVERNA", area: "☕ Café, Salgados e pipocas", desc: "Dentro do Aviário.", icone: "☕", top: 66, left: 38 },
             { id: "quiosque-sucuarana", nome: "QUIOSQUE SUÇUARANA", area: "🍿 Salgados e pipocas", desc: "Em frente ao recinto Suçuarana.", icone: "🍿", top: 64, left: 43 },
             { id: "quiosque-tamandua", nome: "QUIOSQUE TAMANDUÁ", area: "🍿 Café, Salgados e pipocas", desc: "Localizado em frente ao recinto tamanduá.", icone: "🍿", top: 60, left: 56 },
-            { id: "quiosque-fazendinha", nome: "QUIÓSQUE FAZENDINHA", area: "🍿 Café, Salgados e pipocas", desc: "Próximo à Fazendinha.", icone: "🍿", top: 78, left: 66 },
-            { id: "teleferico-est2", nome: "TELEFÉRICO EST. 2", area: "🚠 Teleférico Est. 2", desc: "Localizado próximo à Fazendinha.", icone: "🚠", top: 79, left: 64 },
-            { id: "hamburgueria-est2", nome: "HAMBURGUERIA EST. 2", area: "🍔 Burguers e Porções", desc: "Localizado na Est.2 Teleférico.", icone: "🍔", top: 82, left: 65 },
             { id: "quiosque-lobo-marinho", nome: "QUIOSQUE LOBO MARINHO", area: "🍿 Café, Salgados e pipocas", desc: "Localizado na Reserva.", icone: "🍿", top: 80, left: 80 },
-            { id: "foodpark-espetaria", nome: "FOOD PARK ESPETARIA/LINGUIÇARIA", area: "🍖 Espetos e linguiças.", desc: "Localizado na Reserva.", icone: "🍖", top: 64, left: 69 },
-            { id: "foodpark-chicken", nome: "FOOD PARK CHICKEN & FRIES", area: "🍗 Porções de Frango", desc: "Localizado na Reserva.", icone: "🍗", top: 62, left: 67 },
-            { id: "foodpark-pastelaria", nome: "FOOD PARK PASTELARIA", area: "🥟 Pastéis Sabores", desc: "Localizado na Reserva.", icone: "🥟", top: 60.5, left: 70.5 },
-            { id: "foodpark-yakisoba", nome: "FOOD PARK YAKISOBA", area: "🍜 Yakissoba Sabores", desc: "Localizado na Reserva.", icone: "🍜", top: 59, left: 68 },
-            { id: "restaurante-baoba", nome: "RESTAURANTE BAOBÁ", area: "🍽️ Buffet por Pessoa.", desc: "Localizado na Reserva.", icone: "🍽️", top: 45.5, left: 55.5 },
             { id: "quiosque-canguru", nome: "QUIOSQUE CANGURU", area: "🍿 Café, Salgados e pipocas.", desc: "Localizado na Reserva.", icone: "🍿", top: 40, left: 74.5 },
-            { id: "teleferico-est1", nome: "TELEFÉRICO EST. 1", area: "🚠 Teleférico Est. 1", desc: "Localizado na Vila Animália.", icone: "🚠", top: 19, left: 54.5 },
-            { id: "vila-animalia", nome: "🏘️ VILA ANIMÁLIA", area: "Ambiente aconchegante para uma refeição", desc: "🥩 Restaurante Savana.<br>🍨 Shake do Bin.<br>☕ Vila Cafeteria.<br>🍔 Hamburgueria da Vila.<br>🍕 Selva dos Sabores.<br>🍝 Vila Tratoria.<br>🌭 Hot Dog do Kiran.<br>🥤 Cantinho da Girafa.", icone: "🏘️", top: 22, left: 52 },
+
+            { id: "VILA ANIMALIA", nome: "VILA ANIMÁLIA", area: "Ambiente aconchegante para uma refeições e garantir uma lembrança",
+desc: "🚻Banheiro (Comum e Acessivel)<br>🧸Vila Adventure (Souvenier)<br>🧸Baby Zoo (Souvenier)<br>🥩Restaurante Savana (Carnes nobres)<br>🥤Shake do Bin (Sorvetes e Shakes)<br>☕Vila Cafeteria (Cafés e salgados)<br>🍔Hamburgueria da Vila (Burgues e bebidas)<br>🍕Selva de Sabores (Pizzas e Crespes)<br>🍝Vila Tratoria (Massas e Carnes)<br>🌭Hot Dog do Kiran (Hot Dog's)<br>🍨Cantinho da Girafa (Sorvetes e massas)<br>🚑Ambulatório (Saude e Bombeiros)<br>🚠Vila Estação. (Teleférico)<br>", icone: "icons/vila.png", top: 20, left: 53 },
+
+            { id: "RECEPÇÃO", nome: "RECEPÇÃO", area: "Onde tudo começa e aonde damos um até breve!",
+desc: "🔁Entrada/Saida<br>🚻Banheiro (Comum e Acessivel)<br>🧑‍💻SAV (Serviço de Atendimento ao Visitante)<br>☕Cafeteria (Cafés e salgados)<br>🧸Animalia Adventure (Souvenier)<br>📸Fotografica (Retirada de Fotos)<br>", icone: "icons/recepçao.png", top: 27, left: 48  },
+
+            { id: "FOOD PARK", nome: "FOOD PARK", area: "Natureza e uma boa alimentação",
+desc: "🚻Banheiro (Comum e Acessivel)<br>🍖Espetaria/Linguiçaria<br>🍗Chicken & Fries<br>🥟Pastelaria<br>🍜Yakissoba<br>", icone: "icons/food-park.png", top: 60.5, left: 70.5 },
+
+            { id: "AVIÁRIO", nome: "AVIÁRIO", area: "Um dos Maiores Aviarios da America Latina",
+desc: "🚻Banheiro (Comum e Acessivel)<br>☕Cafá Caverna (Cafés e salgados)<br>🪿Aviário (Passaros e Natureza)<br>", icone: "icons/Aviario.png", top: 60, left: 33  },
+
+            { id: "RESTAURANTE CENTRAL", nome: "RESTAURANTE CENTRAL", area: "Buffet a Vontade",
+desc: "🚻Banheiro (Comum e Acessivel)<br> 🍽️Restaurante Baboá (Buffet por Pessoa)<br> 🦋Jardim das Borboletas (Area de Descanso)<br>", icone: "icons/rest.central.png", top: 45.5, left: 55.5 },
+
+            { id: "DIVERSÃO INDOOR A&B", nome: "🍟🍔 ANIMALIA ALIMENTAÇÃO", area: "Diversão e refeição, tudo em um só lugar!",
+desc: "🚻Banheiro (Comum e Acessivel)<br>🍔 Cesta Pic Nic (Burgues e bebidas).<br>☕Carrossel (Porções e Cafés).<br>🥮Mundo Doce (Doces e Bebidas).<br>🍿Carrinho de Doce e Pipoca.(Vai um docinho ai?)", icone: "icons/div-ab.png", top: 17, left: 35 },
+
+            { id: "DIVERSÃO INDOOR DIV", nome: "🎡 ANIMALIA DIVERSÃO", area: "Atrações Magicas e divertidas!",
+desc: "🚻Banheiro (Comum e Acessivel)<br> 🐸Vitoria Regia<br>🛩️Eagle Flight (Aviãozinho)<br>🎈Balão Mexicano<br>👒Forte Apache (Trenzinho)<br>🦘Kanguroo Joy<br>🦒Giraffe Cool<br>🎠Bella Giostra (Carrosel)<br>🩻Joe Caveira<br>🧗Kite Dragon<br>🍭Mundo Doce<br>⛵Rise of Rome<br>🥶Bear Mountain<br>🏎️Big Chock (bate-bate)<br>🧩Cantinho do Silencio (Para Pessoas neurodivergentes)<br>", icone: "icons/div.png",  top: 21, left: 38 },
+
+            { id: "DIVERSAO AVENTURA", nome: "🎢 ANIMALIA AVENTURA", area: "Atrações Radicaaaaais!",
+desc: "🚻Banheiro (Comum e Acessivel)<br> ⛵Barco Viking (Aqui tem que gritar)<br>💧Splash (Aguaaaa)<br>🥶Cyber Hawk (De ponta cabeça)<br>🎢Cyclone (Intensidade e aventura)<br>🐀Big Air Coaster (Essa é leve)<br>🔫Aqua Combat (Combate aquatico)<br>", icone: "icons/div.png",  top: 10, left: 40 },
+
+            { id: "FAZENDINHA", nome: "FAZENDINHA", area: "Ambiente aconchegante para uma refeições e garantir uma lembrança",
+desc: "🚻Banheiro (Comum e Acessivel)<br>🍿Quiósque Fazendinha (Doces e Bebidas)<br>🧸Estação Souvenier (Ursinhos e lembrancinhas)<br>🍔Hamburgueria Teleférico (Burgues e bebidas)<br>🚠Estação Teleférico (Vai e Vola ou só vai)<br>", icone: "icons/fazenda.png", top: 82, left: 65 },
+
+            { id: "ESTACIONAMENTO", nome: "ESTACIONAMENTO", area: "Vaga garantida e seu carro assegurado!",
+desc: "🚗Vagas Comuns<br>♿Vagas Acessiveis<br>🪫Vagas Carro Eletrificados<br>", icone: "icons/estacionamento.png", top: 40, left: 28 },
 
 
 
 
-            { id: "diversao-indoor", nome: "🍟🍔 DIVERSÃO INDOOR", area: "Diversão e refeição, tudo em um só lugar!", desc: "🍔 Cesta Pic Nic.<br>🥮 Carrossel.<br>🥮 Mundo Doce.<br>🍿 Carrinho de Doce e Pipoca.", icone: "🏘️", top: 17, left: 35 },
+            // --- PONTO DE TESTE COM IMAGEM ---
+            // Altere "teste-imagem.png" para o nome exato do arquivo dentro da pasta "icons"
 
 
 
-            { id: "leoes", nome: "Leões", area: "🦁 Animália Reserva", desc: "Área dos leões do parque.", icone: "🦁", top: 20, left: 10 }
+            { id: "leoes", nome: "LEÃO", area: "🦁 Animália Reserva", desc: "Recinto do Leão.",  icone: "icons/leao.png", top: 43, left: 39 }
+
 
         ]
     },
+
+
+
+
     diversao: {
         imagem: "mapa.diversao.png",
         pontos: [
@@ -79,14 +93,28 @@ function criarMarcador(ponto, container) {
     btn.className = "ponto";
     btn.style.top = `${ponto.top}%`;
     btn.style.left = `${ponto.left}%`;
-    btn.innerHTML = ponto.icone;
     btn.setAttribute("aria-label", ponto.nome);
-    
+
+    // Verifica se o campo icone é um caminho de imagem
+    const ehCaminhoImagem = ponto.icone.includes("/") || ponto.icone.endsWith(".png") || ponto.icone.endsWith(".jpg") || ponto.icone.endsWith(".svg");
+
+    if (ehCaminhoImagem) {
+        const img = document.createElement("img");
+        img.src = ponto.icone;
+        img.alt = ponto.nome;
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "contain";
+        btn.appendChild(img);
+    } else {
+        btn.innerHTML = ponto.icone;
+    }
+
     btn.onclick = (e) => {
         e.stopPropagation();
         abrirLocal(ponto.nome, ponto.area, ponto.desc);
     };
-    
+
     container.appendChild(btn);
 }
 
@@ -117,8 +145,6 @@ const LIMITES_PARQUE = {
 };
 
 function iniciarGeolocalizacao() {
-    const userMarker = document.getElementById("userLocation");
-
     if (!navigator.geolocation) {
         console.warn("Geolocalização não é suportada por este navegador.");
         esconderElemento();
@@ -130,18 +156,12 @@ function iniciarGeolocalizacao() {
             const lat = posicao.coords.latitude;
             const lng = posicao.coords.longitude;
 
-            // Converte Latitude e Longitude para % dentro da imagem do mapa
             let topPercent = ((LIMITES_PARQUE.latMax - lat) / (LIMITES_PARQUE.latMax - LIMITES_PARQUE.latMin)) * 100;
             let leftPercent = ((lng - LIMITES_PARQUE.lngMin) / (LIMITES_PARQUE.lngMax - LIMITES_PARQUE.lngMin)) * 100;
 
-            console.log(`Posição GPS real: Lat ${lat}, Lng ${lng}`);
-            console.log(`Posição calculada: Top ${topPercent.toFixed(1)}%, Left ${leftPercent.toFixed(1)}%`);
-
-            // Se o usuário estiver dentro dos limites do parque (0% a 100%)
             if (topPercent >= 0 && topPercent <= 100 && leftPercent >= 0 && leftPercent <= 100) {
                 posicionarElemento(topPercent, leftPercent);
             } else {
-                // Se estiver testando fora do parque (ex: em casa), oculta o ponto para não mostrar lugar errado
                 console.warn("Você está fora do perímetro do mapa do parque.");
                 esconderElemento();
             }
@@ -151,9 +171,9 @@ function iniciarGeolocalizacao() {
             esconderElemento();
         },
         {
-            enableHighAccuracy: false, // Evita estouro de tempo (Timeout) em notebooks/Wi-Fi
-            maximumAge: 10000,         // Aceita posições recentes obtidas nos últimos 10s
-            timeout: 20000             // Dá até 20 segundos de tolerance de busca
+            enableHighAccuracy: false,
+            maximumAge: 10000,
+            timeout: 20000
         }
     );
 }
