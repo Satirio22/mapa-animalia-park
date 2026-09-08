@@ -115,6 +115,32 @@ function atualizarLegenda(itensLegenda) {
     });
 }
 
+// RECALCULA O ENQUADRAMENTO PERFEITO NA TELA
+function resetZoom() {
+    const container = document.getElementById("mapaContainer");
+    const imgMapa = document.getElementById("imagemMapa");
+
+    if (!container || !imgMapa || imgMapa.naturalWidth === 0) return;
+
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+    const imgWidth = imgMapa.naturalWidth;
+    const imgHeight = imgMapa.naturalHeight;
+
+    // Escala para ajustar perfeitamente à largura do dispositivo
+    scale = containerWidth / imgWidth;
+
+    if (imgHeight * scale < containerHeight) {
+        scale = containerHeight / imgHeight;
+    }
+
+    // Centraliza o mapa
+    pointX = (containerWidth - imgWidth * scale) / 2;
+    pointY = (containerHeight - imgHeight * scale) / 2;
+
+    atualizarTransformacao();
+}
+
 // TROCA DE MAPA E REFRESH DOS PONTOS/LEGENDA
 function trocarMapa(categoria, botaoClicado) {
     if (botaoClicado) {
@@ -125,15 +151,14 @@ function trocarMapa(categoria, botaoClicado) {
     const mapaInfo = dadosPark[categoria];
     if (!mapaInfo) return;
 
-    // Reset Zoom
-    scale = 1;
-    pointX = 0;
-    pointY = 0;
-    atualizarTransformacao();
-
-    document.getElementById("imagemMapa").src = mapaInfo.imagem;
-
+    const imgMapa = document.getElementById("imagemMapa");
     const camada = document.getElementById("camadaPontos");
+
+    imgMapa.onload = () => {
+        resetZoom();
+    };
+
+    imgMapa.src = mapaInfo.imagem;
     camada.innerHTML = "";
 
     mapaInfo.pontos.forEach(ponto => criarMarcador(ponto, camada));
@@ -168,14 +193,7 @@ function zoomIn() {
 }
 
 function zoomOut() {
-    scale = Math.max(scale - 0.3, 0.8);
-    atualizarTransformacao();
-}
-
-function resetZoom() {
-    scale = 1;
-    pointX = 0;
-    pointY = 0;
+    scale = Math.max(scale - 0.3, 0.5);
     atualizarTransformacao();
 }
 
@@ -228,7 +246,7 @@ function inicializarGestos() {
                 e.touches[0].clientY - e.touches[1].clientY
             );
             const factor = currentDist / startDistance;
-            scale = Math.min(Math.max(scale * factor, 0.8), 3.5);
+            scale = Math.min(Math.max(scale * factor, 0.5), 3.5);
             startDistance = currentDist;
             atualizarTransformacao();
         }
