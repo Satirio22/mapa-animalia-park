@@ -100,7 +100,7 @@ html, body {
     will-change: transform;
 }
 
-.mapa img {
+.mapa img#imagemMapa {
     width: 100%;
     height: 100%;
     display: block;
@@ -118,22 +118,24 @@ html, body {
     pointer-events: none;
 }
 
+/* CORREÇÃO PRINCIPAL: MARCADORES COM TAMANHO FIXO MANDATÓRIO */
 .ponto {
     position: absolute;
     transform: translate(-50%, -50%);
     background-color: #ffffff;
     border: 2px solid #8C1B92;
     border-radius: 50%;
-    width: 26px;
-    height: 26px;
+    width: 28px !important;
+    height: 28px !important;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-    padding: 2px;
+    padding: 3px;
     pointer-events: auto;
     z-index: 10;
+    overflow: hidden;
 }
 
 .ponto::after {
@@ -145,11 +147,16 @@ html, body {
     bottom: -10px;
 }
 
+/* TRAVA AS IMAGENS DENTRO DOS PONTOS PARA NÃO EXPLODIREM DE TAMANHO */
+.ponto img, 
 .icone-marcador {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
     pointer-events: none;
+    display: block;
 }
 
 .ponto span {
@@ -158,7 +165,7 @@ html, body {
     pointer-events: none;
 }
 
-/* BOTOES CONTROLE ZOOM */
+/* BOTÕES CONTROLE ZOOM */
 .zoom-controls {
     position: absolute;
     right: 15px;
